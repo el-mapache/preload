@@ -2,7 +2,7 @@
 
 Simple jquery plugin for preloading images.
 
-## Getting Started
+## Usage 
 Clone the repo and move the preloader.gif image into your assets directory.
 Copy the following snippet to your css file: 
     
@@ -11,4 +11,55 @@ Copy the following snippet to your css file:
       display: inline-block;
     }
 
-''' javascript
+
+To instantiate just call .preload() on any jQuery wrapped DOM node.
+For example, given the following HTML: 
+
+    <div id='gallery'>
+      <img src="sweet-img1.jpg"/>
+      <img src="sweet-img2.jpg"/>
+      <img src="sweet-img3.jpg"/>
+      <img src="sweet-img4.jpg"/>
+      <img src="sweet-img5.jpg"/>
+      <img src="sweet-img6.jpg"/>
+      <img src="sweet-img7.jpg"/>
+    </div>
+    
+    <script>
+      $(document).ready(function() {    
+        $('#gallery').preload();
+      });
+    </script>
+
+##Options
+
+The preloader provides a number of defaults related to the timing of image fade-ins and
+how often the plugin checks for newly loaded images.
+
+To overwrite the defaults, simply pass the options you wish to overwrite as an object when
+instantiating the plugin.
+
+The following defaults can be overwritten: 
+
+        $('#gallery').preload({
+          fadeDelayTime:     350,
+          checkLoadedStatus: 300,
+          fadeIn:            600,
+          onDone:            function() {},
+          onEachLoad:        function() {}
+       });
+
+**fadeDelayTime:** Represents the base amount of time (in milliseconds) in between each image being show. 
+It increases cumulatively as each photo is loaded.  For example, given a base time of 350ms and three images,
+The images will load at intervals of 350ms, 700ms, and 1050ms. 
+
+**checkLoadedStatus:** Interval (in milliseconds) at which the plugin will check to see if an image has been loaded.
+
+**fadeIn:** Speed at which the image will fade in.
+
+**onDone:** Callback function that executes when all images have been loaded.
+
+**onEachLoad:** Callback function that shows the image and removes the preloader icon on image load.  
+Triggers the "image:loaded" event and passes a reference to the loaded image.  Be careful when overriding this function!
+
+
