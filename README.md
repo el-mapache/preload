@@ -12,7 +12,7 @@ Copy the following snippet to your css file:
     }
 
 
-To instantiate just call .preload() on any jQuery wrapped DOM node.
+To instantiate, call .preload() on any jQuery wrapped DOM node.
 For example, given the following HTML: 
 
     <div id='gallery'>
@@ -33,10 +33,10 @@ For example, given the following HTML:
 
 ##Options
 
-The preloader provides a number of defaults related to the timing of image fade-ins and
-how often the plugin checks for newly loaded images.
+The preloader provides several defaults related to the timing of image fade-ins and
+the frequency with which the plugin checks for images that have finished loading.
 
-To overwrite the defaults, simply pass the options you wish to overwrite as an object when
+To overwrite the defaults, simply pass the options you wish to overwrite in an object when
 instantiating the plugin.
 
 The following defaults can be overwritten: 
@@ -51,7 +51,7 @@ The following defaults can be overwritten:
 
 **fadeDelayTime:** Represents the base amount of time (in milliseconds) in between each image being show. 
 It increases cumulatively as each photo is loaded.  For example, given a base time of 350ms and three images,
-The images will load at intervals of 350ms, 700ms, and 1050ms. 
+The images will fade in after delays of 350ms, 700ms, and 1050ms, respectively. 
 
 **checkLoadedStatus:** Interval (in milliseconds) at which the plugin will check to see if an image has been loaded.
 
@@ -61,5 +61,3 @@ The images will load at intervals of 350ms, 700ms, and 1050ms.
 
 **onEachLoad:** Callback function that shows the image and removes the preloader icon on image load.  
 Triggers the "image:loaded" event and passes a reference to the loaded image.  Be careful when overriding this function!
-
-
