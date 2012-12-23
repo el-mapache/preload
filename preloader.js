@@ -110,7 +110,7 @@
     _createLoadingIcon: function() {
       var icon = document.createElement('img');
       
-      icon.src = "89.gif";
+      icon.src = "preloader.gif";
       icon.style.display = "none";
       document.body.appendChild(icon);
 
