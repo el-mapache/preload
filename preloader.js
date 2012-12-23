@@ -6,7 +6,7 @@
           options = typeof opts == "object" && opts;
 
       if(!data) {
-        $this.data('preloader',(data = new Preloader(this,opts)));
+        $this.data('preloader',(data = new Preloader(this,options)));
       }
     }); 
   };
@@ -17,9 +17,7 @@
     fadeDelayTime:     350,
     checkLoadedStatus: 300,
     fadeIn:            600,
-
     onDone: function() {},
-
     onEachLoad: function(image, delay, fadeIn) {
       $(image).css({visibility: "visible"})
               .delay(delay)
