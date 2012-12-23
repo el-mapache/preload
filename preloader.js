@@ -41,7 +41,7 @@
   Preloader.prototype = {
     Constructor: Preloader,
     
-    _updateTags: function(element) {
+    _updateNodes: function(element) {
       var parentNode = $(element).parents().first()[0],
           nextSibling = $(element).next()[0];
 
@@ -83,7 +83,7 @@
          then re-insert the images' parent element */
 
       if(images.length > 1) {
-        var reInsert = this._updateTags(this.el);
+        var reInsert = this._updateNodes(this.el);
 
         for(ii; ii < length; ii++) {
           this._setImageStyle(images[ii])
