@@ -15,16 +15,15 @@
 
   var preloader = $.fn.preloader.defaults = {
     fadeDelayTime:     350,
-    parentNode:        'div',
     checkLoadedStatus: 300,
     fadeIn:            600,
 
     onDone: function() {},
 
-    onEachLoad: function(image, delay) {
+    onEachLoad: function(image, delay, fadeIn) {
       $(image).css({visibility: "visible"})
               .delay(delay)
-              .animate({opacity: 1}, this.fadeIn,'linear', function() {
+              .animate({opacity: 1}, fadeIn,'linear', function() {
                 $(this).parents().removeClass('preloader');
               });
       $(image).trigger('image:loaded', {image: image });
@@ -34,7 +33,7 @@
   function Preloader(element,options) {
     this.el = element;
     this.$el = $(element);  
-    this.images = null;
+    this.images = [];
     this.isLoaded = [];
     this.settings = $.extend({},preloader,options);
 
@@ -90,6 +89,7 @@
 
         for(ii; ii < length; ii++) {
           this._setImageStyle(images[ii])
+          this.images[ii] = images[ii];
         }
 
         reInsert();
@@ -97,7 +97,7 @@
         this._setImageStyle(images[0]);
       }
       
-      return this.images = images;
+      return this.images;
     },
 
     _wrapImages: function() {
@@ -146,28 +146,29 @@
     },
 
     _initialize: function() {
-      var ii = 0, images = this.images,
-          length = images.length, delay = this.settings.fadeDelayTime,
-          counter = 0, timer, isLoaded = this.isLoaded, self = this;
+      var images = this.images, delay = this.settings.fadeDelayTime,
+          timer, isLoaded = this.isLoaded, self = this;
 
       function imagePreloaded() {
-        if(counter >= isLoaded.length) {
-          clearInterval(timer);
-          self.settings.onDone();
+        var ii = 0, length = images.length;
 
+        if(length === 0) {
+          clearInterval(timer);
+          self.settings.onDone.call(self);
           return self.el;
         }
         
         for(ii; ii < length; ii++) {
-          if(images[ii].complete === true) {
+          if(images[ii] !== undefined && images[ii].complete === true) {
             if(isLoaded[ii] === false) {
               isLoaded[ii] = true
-              ++counter;
+              isLoaded.splice(ii,1)
               // Global delay setting in case each image gets a plugin attached
-              preloader.fadeDelayTime += delay;
+              self.settings.fadeDelayTime += delay;
             }
 
-            self.settings.onEachLoad(images[ii],preloader.fadeDelayTime,self.settings.fadeIn);
+            self.settings.onEachLoad(images[ii],self.settings.fadeDelayTime,self.settings.fadeIn);
+            images.splice(ii,1);
           }
         }
       }
@@ -177,4 +178,5 @@
       },this.settings.checkLoadedStatus);
     }
   };
+
 }(window.jQuery));
