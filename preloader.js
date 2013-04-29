@@ -11,7 +11,7 @@
     }); 
   };
   
-  $.fn.preloader.Contructor = Preloader; 
+  $.fn.preloader.Constructor = Preloader; 
 
   var preloader = $.fn.preloader.defaults = {
     fadeDelayTime:     350,
