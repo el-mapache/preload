@@ -49,9 +49,7 @@ The following defaults can be overwritten:
           onEachLoad:        function() {}
        });
 
-**fadeDelayTime:** Represents the base amount of time (in milliseconds) in between each image being show. 
-It increases cumulatively as each photo is loaded.  For example, given a base time of 350ms and three images,
-The images will fade in after delays of 350ms, 700ms, and 1050ms, respectively. 
+**fadeDelayTime:** Represents the base amount of time (in milliseconds) in between each image being show.
 
 **checkLoadedStatus:** Interval (in milliseconds) at which the plugin will check to see if an image has been loaded.
 
